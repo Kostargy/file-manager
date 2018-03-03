@@ -16,7 +16,8 @@ app.on('ready', function() {
   mainWindow = new BrowserWindow({
     width: 1000,
     heigth: 800,
-    title: 'File Manager'
+    title: 'File Manager',
+    resizable: false,
   });
 
   mainWindow.loadURL(url.format({

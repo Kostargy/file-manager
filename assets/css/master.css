@@ -10,8 +10,8 @@ body {
 }
 
 .top-bar {
-  height: 30px;
-  line-height: 30px;
+  height: 50px;
+  line-height: 50px;
   border-bottom: 1px solid #424242;
 }
 
@@ -52,11 +52,18 @@ body {
 }
 
 .history-arrow {
-  display: inline;
-  margin-right: 20px;
-  padding: 5px;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  line-height: 30px;
+  width: 30px;
 }
 
+.history-arrow:hover {
+  background-color: #37474F;
+  border-radius: 3px;
+  cursor: pointer;
+}
 
 .sub {
   margin-left: 15px;
