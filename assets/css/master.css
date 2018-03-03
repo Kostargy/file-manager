@@ -9,6 +9,12 @@ body {
   margin-right: 0px;
 }
 
+.top-bar {
+  height: 30px;
+  line-height: 30px;
+  border-bottom: 1px solid #424242;
+}
+
 .file-tree {
   min-height: 100vh !important;
   border-right: 1px solid #616161;
@@ -19,6 +25,13 @@ body {
   margin-top: 15px;
 }
 
+.folder {
+  margin-bottom: 10px;
+}
+
+.folder-name {
+  margin-left: 10px;
+}
 
 .folder-view {
   min-height: 100vh !important;
@@ -31,4 +44,20 @@ body {
   min-height: 100%;
   margin-left: 0px !important;
   margin-right: 0px !important;
+}
+
+
+.arrow {
+  margin-right: 15px;
+}
+
+.history-arrow {
+  display: inline;
+  margin-right: 20px;
+  padding: 5px;
+}
+
+
+.sub {
+  margin-left: 15px;
 }

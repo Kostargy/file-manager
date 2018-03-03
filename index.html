@@ -9,13 +9,38 @@
 
   </head>
   <body>
-      <div class="row">
-        <div class="col-md-2 file-tree">
-          <div class="folders">
-            Hello
+      <div class="row top-bar">
+        <div class="col-md-2">
+          <div class="history-arrow">
+            <i class="fas fa-arrow-left"></i>
+          </div>
+          <div class="history-arrow">
+            <i class="fas fa-arrow-right"></i>
           </div>
         </div>
-        <div class="col-md-10 folder-view">
+        <div class="col-md-8">
+          Path
+        </div>
+        <div class="col-md-2">
+          view
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 file-tree">
+          <div class="folders">
+            <div class="folder">
+              <i class="fas fa-angle-down arrow"></i>
+              <i class="fas fa-folder"></i>
+              <span class="folder-name">Documents</span>
+            </div>
+            <div class="sub folder">
+              <i class="fas fa-angle-right arrow"></i>
+              <i class="fas fa-folder-open"></i>
+              <span class="folder-name">My_files</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 folder-view">
           <div class="folders">
             files
           </div>
@@ -23,6 +48,7 @@
       </div>
 
   </body>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
   <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 
 </html>
