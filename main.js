@@ -15,7 +15,7 @@ let addWindow;
 app.on('ready', function() {
   mainWindow = new BrowserWindow({
     width: 1000,
-    heigth: 800,
+    heigth: 900,
     title: 'File Manager',
     resizable: false,
   });
