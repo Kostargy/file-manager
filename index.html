@@ -145,46 +145,50 @@
         </div>
         `);
 
-        buildFileTree('./');
+        buildFileTree('./' , $('.file-tree > .folders'));
         buildFolderView('./');
 
     });
 
-    function buildFileTree(path) {
+    function buildFileTree(path, parent) {
       fs.readdir(path,function(error,items){
+        if (items == undefined) {
+          return;
+        }
         for (var i = 0; i < items.length; i++) {
-          //console.log(path.join(__dirname,items[i]));
+          let absPath =__dirname+"/"+items[i];
           let name = items[i].split('.');
           let element;
           //console.log(name);
           if (name[0]=='') {
-            console.log(`item with name ${items[i]} is a hidden folder`);
+            //console.log(`item with name ${items[i]} is a hidden folder`);
             element = `
-            <div class="sub folder">
+            <div class="sub folder" path="${absPath}">
               <i class="fas fa-angle-right arrow"></i>
               <i class="far fa-folder"></i>
               <span class="folder-name">${items[i]}</span>
             </div>
             `;
           }else if(name.length == 1) {
-            console.log(`item with name ${items[i]} is a folder`);
+            //console.log(`item with name ${items[i]} is a folder`);
             element = `
-            <div class="sub folder">
+            <div class="sub folder" path="${absPath}">
               <i class="fas fa-angle-right arrow"></i>
               <i class="fas fa-folder"></i>
               <span class="folder-name">${items[i]}</span>
             </div>
             `;
           }else{
-            console.log(`item with name ${items[i]} is a file`);
+            //console.log(`item with name ${items[i]} is a file`);
             element = `
-            <div class="sub sub-file folder">
+            <div class="sub sub-file folder" path="${absPath}">
               <i class="fas fa-file"></i>
               <span class="folder-name">${items[i]}</span>
             </div>
             `;
           }
-          $('.file-tree > .folders').append(element);
+
+          parent.append(element);
 
         }
 
@@ -195,13 +199,14 @@
       fs.readdir(path,function(error,items){
         for (var i = 0; i < items.length; i++) {
           //console.log(path.join(__dirname,items[i]));
+          let absPath = __dirname+'/'+items[i];
           let name = items[i].split('.');
           let elementRight;
           //console.log(name);
           if (name[0]=='') {
-            console.log(`item with name ${items[i]} is a hidden folder`);
+            //console.log(`item with name ${items[i]} is a hidden folder`);
             elementRight = `
-            <div class="file">
+            <div class="file" path="${absPath}">
               <div class="file-icon">
                 <i class="far fa-folder"></i>
               </div>
@@ -212,9 +217,9 @@
             `;
 
           }else if(name.length == 1) {
-            console.log(`item with name ${items[i]} is a folder`);
+            //console.log(`item with name ${items[i]} is a folder`);
             elementRight = `
-            <div class="file">
+            <div class="file" path="${absPath}">
               <div class="file-icon">
                 <i class="fas fa-folder"></i>
               </div>
@@ -225,9 +230,9 @@
             `;
 
           }else{
-            console.log(`item with name ${items[i]} is a file`);
+          //  console.log(`item with name ${items[i]} is a file`);
             elementRight = `
-            <div class="file">
+            <div class="file" path="${absPath}">
               <div class="file-icon">
                 <i class="fas fa-file"></i>
               </div>
@@ -243,6 +248,18 @@
 
       });
     }
+
+    $('.folders').on('click','.folder',function(){
+      let path = $(this).attr('path');
+      $(this).find($(".arrow")).addClass('fa-angle-down').removeClass('fa-angle-right');
+      console.log(path);
+      let element = `
+      <div class="sub folder"></div>
+      `;
+      let jqElement = $(element);
+      $(this).after(jqElement);
+      buildFileTree(path , jqElement);
+    });
 
   </script>
 </html>
