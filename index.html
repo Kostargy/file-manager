@@ -41,7 +41,7 @@
         <div class="row flex">
           <div class="col-md-3 file-tree">
             <div class="folders">
-              <div class="folder folder-active">
+            <!--  <div class="folder folder-active">
                 <i class="fas fa-angle-down arrow"></i>
                 <i class="fas fa-folder-open"></i>
                 <span class="folder-name">Documents</span>
@@ -58,12 +58,12 @@
               <div class="sub sub-file folder">
                 <i class="fas fa-file-code"></i>
                 <span class="folder-name">Html_file</span>
-              </div>
+              </div>-->
             </div>
           </div>
           <div class="col-md-9 folder-view">
             <div class="folders">
-              <div class="file">
+              <!--<div class="file">
                 <div class="file-icon">
                   <i class="fas fa-folder"></i>
                 </div>
@@ -87,7 +87,7 @@
                   Html-file
                 </div>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -113,13 +113,13 @@
     const path = require('path');
     let pathItems = __dirname.split("/");
     pathItems.splice(0,1);
-
+    let rootName = pathItems[pathItems.length-1];
     $(document).ready(function(){
+
       let absolutePath = '';
       for (var i = 0; i < pathItems.length; i++) {
         let element;
         absolutePath = `${absolutePath}/${pathItems[i]}`;
-        console.log(absolutePath);
 
         if (i==0) {
           element = `<div class="path-item first" path="${absolutePath}">
@@ -137,14 +137,112 @@
         $('.path-items').append(element)
       }
 
+      $('.file-tree > .folders').append(`
+        <div class="folder folder-active" path="${__dirname}">
+          <i class="fas fa-angle-down arrow"></i>
+          <i class="fas fa-folder-open"></i>
+          <span class="folder-name">${rootName}</span>
+        </div>
+        `);
+
+        buildFileTree('./');
+        buildFolderView('./');
+
     });
 
+    function buildFileTree(path) {
+      fs.readdir(path,function(error,items){
+        for (var i = 0; i < items.length; i++) {
+          //console.log(path.join(__dirname,items[i]));
+          let name = items[i].split('.');
+          let element;
+          //console.log(name);
+          if (name[0]=='') {
+            console.log(`item with name ${items[i]} is a hidden folder`);
+            element = `
+            <div class="sub folder">
+              <i class="fas fa-angle-right arrow"></i>
+              <i class="far fa-folder"></i>
+              <span class="folder-name">${items[i]}</span>
+            </div>
+            `;
+          }else if(name.length == 1) {
+            console.log(`item with name ${items[i]} is a folder`);
+            element = `
+            <div class="sub folder">
+              <i class="fas fa-angle-right arrow"></i>
+              <i class="fas fa-folder"></i>
+              <span class="folder-name">${items[i]}</span>
+            </div>
+            `;
+          }else{
+            console.log(`item with name ${items[i]} is a file`);
+            element = `
+            <div class="sub sub-file folder">
+              <i class="fas fa-file"></i>
+              <span class="folder-name">${items[i]}</span>
+            </div>
+            `;
+          }
+          $('.file-tree > .folders').append(element);
 
-    fs.readdir('./',function(error,items){
-      for (var i = 0; i < items.length; i++) {
-        console.log(path.join(__dirname,items[i]));
-      }
-    });
+        }
+
+      });
+    }
+
+    function buildFolderView(path){
+      fs.readdir(path,function(error,items){
+        for (var i = 0; i < items.length; i++) {
+          //console.log(path.join(__dirname,items[i]));
+          let name = items[i].split('.');
+          let elementRight;
+          //console.log(name);
+          if (name[0]=='') {
+            console.log(`item with name ${items[i]} is a hidden folder`);
+            elementRight = `
+            <div class="file">
+              <div class="file-icon">
+                <i class="far fa-folder"></i>
+              </div>
+              <div class="file-name">
+                ${items[i]}
+              </div>
+            </div>
+            `;
+
+          }else if(name.length == 1) {
+            console.log(`item with name ${items[i]} is a folder`);
+            elementRight = `
+            <div class="file">
+              <div class="file-icon">
+                <i class="fas fa-folder"></i>
+              </div>
+              <div class="file-name">
+                ${items[i]}
+              </div>
+            </div>
+            `;
+
+          }else{
+            console.log(`item with name ${items[i]} is a file`);
+            elementRight = `
+            <div class="file">
+              <div class="file-icon">
+                <i class="fas fa-file"></i>
+              </div>
+              <div class="file-name">
+                ${items[i]}
+              </div>
+            </div>
+            `;
+          }
+          $('.folder-view > .folders').append(elementRight);
+
+        }
+
+      });
+    }
 
   </script>
 </html>
