@@ -34,18 +34,13 @@ app.on('ready', function() {
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
 
   Menu.setApplicationMenu(mainMenu);
+
 });
 
 const mainMenuTemplate = [
   {
     label: 'File',
     submenu: [
-      {
-        label: 'Load Vector',
-        click(){
-          loadVector();
-        }
-      },
       {
         label: 'Quit',
         accelerator: process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
@@ -74,9 +69,4 @@ if (process.env.NODE_ENV !=='production') {
       }
     ]
   });
-}
-
-
-function loadVector() {
-  console.log("load from file");
 }
