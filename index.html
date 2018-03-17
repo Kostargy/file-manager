@@ -138,14 +138,16 @@
       }
 
       $('.file-tree > .folders').append(`
-        <div class="folder folder-active" path="${__dirname}">
-          <i class="fas fa-angle-down arrow"></i>
-          <i class="fas fa-folder-open"></i>
-          <span class="folder-name">${rootName}</span>
+        <div class="folder root" path="${__dirname}">
+          <div class='folder-body folder-active'>
+            <i class="fas fa-angle-down arrow"></i>
+            <i class="fas fa-folder-open"></i>
+            <span class="folder-name">${rootName}</span>
+          </div>
         </div>
         `);
 
-        buildFileTree('./' , $('.file-tree > .folders'));
+        buildFileTree('./' , $('.file-tree > .folders > .root'));
         buildFolderView('./');
 
     });
@@ -164,26 +166,32 @@
             //console.log(`item with name ${items[i]} is a hidden folder`);
             element = `
             <div class="sub folder" path="${absPath}">
-              <i class="fas fa-angle-right arrow"></i>
-              <i class="far fa-folder"></i>
-              <span class="folder-name">${items[i]}</span>
+              <div class='folder-body'>
+                <i class="fas fa-angle-right arrow"></i>
+                <i class="far fa-folder"></i>
+                <span class="folder-name">${items[i]}</span>
+              </div>
             </div>
             `;
           }else if(name.length == 1) {
             //console.log(`item with name ${items[i]} is a folder`);
             element = `
             <div class="sub folder" path="${absPath}">
-              <i class="fas fa-angle-right arrow"></i>
-              <i class="fas fa-folder"></i>
-              <span class="folder-name">${items[i]}</span>
+              <div class='folder-body'>
+                <i class="fas fa-angle-right arrow"></i>
+                <i class="fas fa-folder"></i>
+                <span class="folder-name">${items[i]}</span>
+              </div>
             </div>
             `;
           }else{
             //console.log(`item with name ${items[i]} is a file`);
             element = `
             <div class="sub sub-file folder" path="${absPath}">
-              <i class="fas fa-file"></i>
-              <span class="folder-name">${items[i]}</span>
+              <div class='folder-body'>
+                <i class="fas fa-file"></i>
+                <span class="folder-name">${items[i]}</span>
+              </div>
             </div>
             `;
           }
@@ -251,6 +259,11 @@
 
     $('.folders').on('click','.folder',function(e){
       e.stopPropagation();
+
+      if (!$(this).hasClass('sub-file')) {
+        $('.folder-active').removeClass('folder-active');
+        $(this).find('.folder-body').addClass('folder-active');
+      }
 
       if($(this).find('.folder.sub').length>0){
         //console.log("this folder has sub folders open");
