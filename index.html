@@ -156,7 +156,7 @@
           return;
         }
         for (var i = 0; i < items.length; i++) {
-          let absPath =__dirname+"/"+items[i];
+          let absPath =path+"/"+items[i];
           let name = items[i].split('.');
           let element;
           //console.log(name);
@@ -249,10 +249,11 @@
       });
     }
 
-    $('.folders').on('click','.folder',function(){
+    $('.folders').on('click','.folder',function(e){
+      e.stopPropagation();
       let path = $(this).attr('path');
       $(this).find($(".arrow")).addClass('fa-angle-down').removeClass('fa-angle-right');
-      console.log(path);
+      //console.log(path);
       let element = `
       <div class="sub folder"></div>
       `;
