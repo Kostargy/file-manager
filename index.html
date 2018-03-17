@@ -282,6 +282,10 @@
       let jqElement = $(element);
       $(this).append(jqElement);
       buildFileTree(path , jqElement);
+      if($('.folders').find('.file').length>0){
+        $('.folders').find('.file').remove();
+      }
+      buildFolderView(path)
     });
 
   </script>

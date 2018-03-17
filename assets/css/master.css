@@ -105,6 +105,11 @@ body {
   margin-left: 30px;
 }
 
+.folder-body {
+  margin-left: -15px;
+  padding-left: 15px;
+}
+
 .file {
   text-align: center;
   max-width: 100px;
